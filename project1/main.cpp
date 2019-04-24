@@ -15,25 +15,25 @@ struct timing
 	double seconds;
 };
 
+void shuffle_vector(std::vector<int>& v)
+{
+	int size = v.size();
+	std::mt19937 mt = get_seed();	
+	
+	for (int i = 0; i < size / 2; ++i)
+	{
+		int index1 = mt() % size, index2 = mt() % size;
+		swap(v, index1, index2);
+	}
+}
+
 std::vector<int> get_random_vector(int n)
 {
 	std::vector<int> v = std::vector<int>(n);
 	for (int i = 0; i < n; ++i)
 		v[i] = (i + 1);
-	random_shuffle(v);
+	shuffle_vector(v);
 	return v;
-}
-
-void random_shuffle(std::vector<int>& v)
-{
-	int size = v.size();
-	std::mt19937 mt = get_seed();	
-	
-	for (int i = 0; i < n / 2; ++i)
-	{
-		int index1 = mt() % size, index2 = mt() % size;
-		swap(v, index1, index2);
-	}
 }
 
 int main()
