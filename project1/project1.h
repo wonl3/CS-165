@@ -3,8 +3,28 @@
 
 #include <vector>
 #include <iostream>
+#include <random>
+#include <chrono>
 
-//helper functions
+//Helper Function
+
+std::mt19937 get_seed()
+{
+	unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
+	return std::mt19937(seed);
+}
+
+void print_mt_nums(std::mt19937 mt, int n)
+{
+	for (int i = 0; i < n; ++i)
+		std::cout << mt() << std::endl;
+}
+
+int randint(std::mt19937 mt, int lb, int ub)
+{
+	return std::uniform_int_distribution<int>(lb, ub)(mt);
+}
+
 void swap(std::vector<int>& nums, int i, int j)
 {
 	int temp = nums[i];

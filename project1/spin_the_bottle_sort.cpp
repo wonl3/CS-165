@@ -1,23 +1,4 @@
 #include "project1.h"
-#include <random>
-#include <chrono>
-
-std::mt19937 get_seed()
-{
-	unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
-	return std::mt19937(seed);
-}
-
-void print_mt_nums(std::mt19937 mt, int n)
-{
-	for (int i = 0; i < n; ++i)
-		std::cout << mt() << std::endl;
-}
-
-int randint(std::mt19937 mt, int lb, int ub)
-{
-	return std::uniform_int_distribution<int>(lb, ub)(mt);
-}
 
 void spin_the_bottle_sort(std::vector<int>& nums)
 {
