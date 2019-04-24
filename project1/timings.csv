@@ -1,0 +1,6 @@
+funcname,n,seconds
+bubble_sort,10,1.66667e-06
+bubble_sort,100,8.3e-05
+bubble_sort,1000,0.00699833
+bubble_sort,10000,0.593256
+bubble_sort,100000,60.3942

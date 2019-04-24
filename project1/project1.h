@@ -6,7 +6,7 @@
 #include <random>
 #include <chrono>
 
-//Helper Function
+// Helper Functions
 
 std::mt19937 get_seed()
 {
@@ -47,6 +47,7 @@ bool check_sorted(std::vector<int>& nums)
 			return false;
 	return true;
 }
+
 
 //REQUIREMENTS:
 //each sort should be implemented in its own file of the same name e.g. bubble_sort.cpp
