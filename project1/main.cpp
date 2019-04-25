@@ -18,7 +18,7 @@ int main()
 // Uniform
 
 	// Bubble Sort
-	for (int n = 10; n <= 1000; n *= 10)
+	for (int n = 10; n <= 100000; n *= 10)
 	{
 		t = uniform_bs_sorting_time(n, 3);
 		//std::cout << "Size " << t.n << ", Time: " << t.seconds << std::endl;
@@ -27,7 +27,7 @@ int main()
 	}
 
 	// Insertion Sort
-	for (int n = 10; n <= 1000; n *= 10)
+	for (int n = 10; n <= 100000; n *= 10)
 	{
 		t = uniform_is_sorting_time(n, 3);
 		//std::cout << "Size " << t.n << ", Time: " << t.seconds << std::endl;
@@ -45,7 +45,7 @@ int main()
 	}
 
 	// Shell Sort
-	for (int n = 10; n <= 1000; n *= 10)
+	for (int n = 10; n <= 100000; n *= 10)
 	{
 		t = uniform_ss_sorting_time(n, 3);
 		//std::cout << "Size " << t.n << ", Time: " << t.seconds << std::endl;
@@ -57,7 +57,7 @@ int main()
 // Nearly Sorted
 
 	// Bubble Sort
-	for (int n = 10; n <= 1000; n *= 10)
+	for (int n = 10; n <= 100000; n *= 10)
 	{
 		t = nearly_sorted_bs_sorting_time(n, 3);
 		//std::cout << "Size " << t.n << ", Time: " << t.seconds << std::endl;
@@ -66,7 +66,7 @@ int main()
 	}
 
 	// Insertion Sort
-	for (int n = 10; n <= 1000; n *= 10)
+	for (int n = 10; n <= 100000; n *= 10)
 	{
 		t = nearly_sorted_is_sorting_time(n, 3);
 		//std::cout << "Size " << t.n << ", Time: " << t.seconds << std::endl;
@@ -84,7 +84,7 @@ int main()
 	}
 
 	// Shell Sort
-	for (int n = 10; n <= 1000; n *= 10)
+	for (int n = 10; n <= 100000; n *= 10)
 	{
 		t = nearly_sorted_ss_sorting_time(n, 3);
 		//std::cout << "Size " << t.n << ", Time: " << t.seconds << std::endl;
