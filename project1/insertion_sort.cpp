@@ -1,6 +1,6 @@
 #include "project1.h"
 
-
+/*
 void find_pos(std::vector<int>& nums, int i, int gap)
 {
 	int temp = nums[i];
@@ -14,13 +14,21 @@ void find_pos(std::vector<int>& nums, int i, int gap)
 	
 	nums[i] = temp;
 }
+*/
 
 void insertion_sort(std::vector<int>& nums)
 {
 	int size = nums.size();
 	for (int i = 1; i < size; ++i)
 	{
-		find_pos(nums, i, 1);
+		int temp = nums[i];
+		int j = i;
+		while (j > 0 && temp < nums[j-1])
+		{
+			nums[j] = nums[j-1];
+			--j;
+		}
+		nums[j] = temp;
 	}
 }
 

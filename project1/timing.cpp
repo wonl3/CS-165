@@ -28,48 +28,6 @@ struct timing
 	}
 };
 
-void shuffle_vector(std::vector<int>& v)
-{
-	int size = v.size();
-	std::mt19937 mt = get_seed();	
-	
-	for (int i = 0; i < size / 2; ++i)
-	{
-		int index1 = mt() % size, index2 = mt() % size;
-		swap(v, index1, index2);
-	}
-}
-
-void shuffle_vector_2(std::vector<int>& v)
-{
-	int size = v.size();
-	int number_of_swaps = 2 * (int) (log2((double) size));
-	std::mt19937 mt = get_seed();
-
-	for (int i = 0; i < number_of_swaps; ++i)
-	{
-		int index1 = mt() % size, index2 = mt() % size;
-		swap(v, index1, index2);
-	}
-}
-
-std::vector<int> get_random_vector(int n)
-{
-	std::vector<int> v = std::vector<int>(n);
-	for (int i = 0; i < n; ++i)
-		v[i] = (i + 1);
-	shuffle_vector(v);
-	return v;
-}
-
-std::vector<int> get_nearly_sorted_vector(int n)
-{
-	std::vector<int> v = std::vector<int>(n);
-	for (int i = 0; i < n; ++i)
-		v[i] = (i + 1);
-	shuffle_vector_2(v);
-	return v;
-}
 
 void create_empty_timing_file(std::string filename)
 {
@@ -85,6 +43,25 @@ void add_timing(std::string funcname, timing t, std::string filename)
 	f.open(filename, std::ios::app);
 	f << funcname << "," << t.n << "," << t.seconds << "\n";
 	f.close();
+}
+
+void create_empty_timings()
+{
+	create_empty_timing_file("timings/uniform_bs_timings.csv");
+	create_empty_timing_file("timings/uniform_is_timings.csv");
+	create_empty_timing_file("timings/uniform_stbs_timings.csv");
+	create_empty_timing_file("timings/uniform_ss_1_timings.csv");
+	create_empty_timing_file("timings/uniform_ss_2_timings.csv");
+	create_empty_timing_file("timings/uniform_as_1_timings.csv");
+	create_empty_timing_file("timings/uniform_as_2_timings.csv");
+
+	create_empty_timing_file("timings/nearly_sorted_bs_timings.csv");
+	create_empty_timing_file("timings/nearly_sorted_is_timings.csv");
+	create_empty_timing_file("timings/nearly_sorted_stbs_timings.csv");
+	create_empty_timing_file("timings/nearly_sorted_ss_1_timings.csv");
+	create_empty_timing_file("timings/nearly_sorted_ss_2_timings.csv");
+	create_empty_timing_file("timings/nearly_sorted_as_1_timings.csv");
+	create_empty_timing_file("timings/neary_sorted_as_2_timings.csv");
 }
 
 // Uniformly Distributed Vector Sortings
@@ -137,7 +114,7 @@ timing uniform_stbs_sorting_time(int n, int reps)
 	return t;
 }
 
-timing uniform_ss_sorting_time(int n, int reps)
+timing uniform_ss_1_sorting_time(int n, int reps)
 {
 	double total_time = 0.0;
 	std::vector<int> v, gaps;
@@ -146,6 +123,62 @@ timing uniform_ss_sorting_time(int n, int reps)
 		v = get_random_vector(n);
 		std::clock_t start_time = clock();
 		shell_sort(v, gaps);
+		std::clock_t end_time = clock();
+		total_time += (float)(end_time - start_time) / CLOCKS_PER_SEC;
+	}
+	timing t(n, (float)total_time/reps);
+	return t;
+}
+
+timing uniform_ss_2_sorting_time(int n, int reps)
+{
+	double total_time = 0.0;
+	std::vector<int> v, gaps;
+	for (int i = 0; i < reps; ++i)
+	{
+		v = get_random_vector(n);
+		gaps = make_gaps(n);
+		//print(gaps);
+		std::clock_t start_time = clock();
+		shell_sort(v, gaps);
+		std::clock_t end_time = clock();
+		total_time += (float)(end_time - start_time) / CLOCKS_PER_SEC;
+	}
+	timing t(n, (float)total_time/reps);
+	return t;
+}
+
+timing uniform_as_1_sorting_time(int n, int reps)
+{
+	double total_time = 0.0;
+	std::vector<int> v, temp, rep;
+	temp = get_log2_rev_vector(n);
+	rep = get_log2_rev_vector(n);
+
+	for (int i = 0; i < reps; ++i)
+	{
+		v = get_random_vector(n);
+		std::clock_t start_time = clock();
+		annealing_sort(v, temp, rep);
+		std::clock_t end_time = clock();
+		total_time += (float)(end_time - start_time) / CLOCKS_PER_SEC;
+	}
+	timing t(n, (float)total_time/reps);
+	return t;
+}
+
+timing uniform_as_2_sorting_time(int n, int reps)
+{
+	double total_time = 0.0;
+	std::vector<int> v, temp, rep;
+	temp = get_log2_rev_vector(n);
+	rep = get_log2_rev_vector(n);
+
+	for (int i = 0; i < reps; ++i)
+	{
+		v = get_random_vector(n);
+		std::clock_t start_time = clock();
+		annealing_sort(v, temp, rep);
 		std::clock_t end_time = clock();
 		total_time += (float)(end_time - start_time) / CLOCKS_PER_SEC;
 	}
@@ -203,7 +236,7 @@ timing nearly_sorted_stbs_sorting_time(int n, int reps)
 	return t;
 }
 
-timing nearly_sorted_ss_sorting_time(int n, int reps)
+timing nearly_sorted_ss_1_sorting_time(int n, int reps)
 {
 	double total_time = 0.0;
 	std::vector<int> v, gaps;
@@ -219,3 +252,58 @@ timing nearly_sorted_ss_sorting_time(int n, int reps)
 	return t;
 }
 
+timing nearly_sorted_ss_2_sorting_time(int n, int reps)
+{
+	double total_time = 0.0;
+	std::vector<int> v, gaps;
+	for (int i = 0; i < reps; ++i)
+	{
+		v = get_nearly_sorted_vector(n);
+		gaps = make_gaps(n);
+		//print(gaps);
+		std::clock_t start_time = clock();
+		shell_sort(v, gaps);
+		std::clock_t end_time = clock();
+		total_time += (float)(end_time - start_time) / CLOCKS_PER_SEC;
+	}
+	timing t(n, (float)total_time/reps);
+	return t;
+}
+
+timing nearly_sorted_as_1_sorting_time(int n, int reps)
+{
+	double total_time = 0.0;
+	std::vector<int> v, temp, rep;
+	temp = get_log2_rev_vector(n);
+	rep = get_log2_rev_vector(n);
+	
+	for (int i = 0; i < reps; ++i)
+	{
+		v = get_nearly_sorted_vector(n);
+		std::clock_t start_time = clock();
+		annealing_sort(v, temp, rep);
+		std::clock_t end_time = clock();
+		total_time += (float)(end_time - start_time) / CLOCKS_PER_SEC;
+	}
+	timing t(n, (float)total_time/reps);
+	return t;
+}
+
+timing nearly_sorted_as_2_sorting_time(int n, int reps)
+{
+	double total_time = 0.0;
+	std::vector<int> v, temp, rep;
+	temp = get_log2_rev_vector(n);
+	rep = get_log2_rev_vector(n);
+
+	for (int i = 0; i < reps; ++i)
+	{
+		v = get_nearly_sorted_vector(n);
+		std::clock_t start_time = clock();
+		annealing_sort(v, temp, rep);
+		std::clock_t end_time = clock();
+		total_time += (float)(end_time - start_time) / CLOCKS_PER_SEC;
+	}
+	timing t(n, (float)total_time/reps);
+	return t;
+}

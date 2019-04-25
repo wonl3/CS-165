@@ -1,0 +1,4 @@
+funcname,n,seconds
+annealing_sort,10,3.06667e-05
+annealing_sort,100,0.001635
+annealing_sort,1000,0.138151
