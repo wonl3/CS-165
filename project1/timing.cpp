@@ -1,71 +1,221 @@
+#include "bubble_sort.cpp"
+#include "insertion_sort.cpp"
+#include "spin_the_bottle_sort.cpp"
+#include "shell_sort.cpp"
+#include "annealing_sort.cpp"
 #include <iostream>
 #include <fstream>
-#include <vector>
 #include <algorithm>
 #include <ctime>
+#include <string>
+#include <cmath>
 
-using namespace std;
-
-struct timing 
+struct timing
 {
-    int n;
-    double seconds;
+	int n;
+	double seconds;
+
+	timing()
+	{
+		n = 0;
+		seconds = 0.0;
+	}
+
+	timing(int m, double s)
+	{
+		n = m;
+		seconds = s;
+	}
 };
 
-// get a vector of ints in 1, 2, ... , n shuffled randomly
-vector<int> get_random_shuffled_int_vector(int n)
+void shuffle_vector(std::vector<int>& v)
 {
-    vector<int> vec = vector<int>(n);
-    for(int i = 0; i < n; i++)
-        vec[i] = (i + 1);
-    random_shuffle(vec.begin(), vec.end());
-    return vec;
+	int size = v.size();
+	std::mt19937 mt = get_seed();	
+	
+	for (int i = 0; i < size / 2; ++i)
+	{
+		int index1 = mt() % size, index2 = mt() % size;
+		swap(v, index1, index2);
+	}
 }
 
-// run and time sort for vector with n elements. return vector of timings with sizes and seconds
-timing time_sort(int n, int reps)
+void shuffle_vector_2(std::vector<int>& v)
 {
-    double total_time = 0.0;
-    vector<int> rvec;
-    for(int i = 0; i < reps; i++)
-    {
-        rvec = get_random_shuffled_int_vector(n);
-        clock_t c_start = clock();
-        sort(rvec.begin(), rvec.end());
-        clock_t c_end = clock();
-        total_time += (float)(c_end - c_start) / CLOCKS_PER_SEC;
-    }
-    timing t;
-    t.n = n;
-    t.seconds = (float)total_time/reps;
-    return t;
+	int size = v.size();
+	int number_of_swaps = 2 * (int) (log2((double) size));
+	std::mt19937 mt = get_seed();
+
+	for (int i = 0; i < number_of_swaps; ++i)
+	{
+		int index1 = mt() % size, index2 = mt() % size;
+		swap(v, index1, index2);
+	}
 }
 
-// create/truncate a file with chosen filename. insert csv header "funcname,n,seconds"
-void create_empty_timings_file(string filename)
+std::vector<int> get_random_vector(int n)
 {
-    ofstream f;
-    f.open(filename, ios::trunc);
-    f << "funcname,n,seconds\n";
-    f.close();
+	std::vector<int> v = std::vector<int>(n);
+	for (int i = 0; i < n; ++i)
+		v[i] = (i + 1);
+	shuffle_vector(v);
+	return v;
 }
 
-// append timings data in csv format to a file with no header. (header should be created first)
-void add_timings_to_file(string funcname, timing t, string filename)
+std::vector<int> get_nearly_sorted_vector(int n)
 {
-    ofstream f;
-    f.open(filename, ios::app);
-    f << funcname << "," << t.n << "," << t.seconds << "\n";
-    f.close();
+	std::vector<int> v = std::vector<int>(n);
+	for (int i = 0; i < n; ++i)
+		v[i] = (i + 1);
+	shuffle_vector_2(v);
+	return v;
 }
 
-int main()
+void create_empty_timing_file(std::string filename)
 {
-    create_empty_timings_file("timings.csv");
-    timing t;
-    for(int n = 10; n <= 10000000; n *= 10)
-    {
-        t = time_sort(n, 3);
-        add_timings_to_file("introsort", t, "timings.csv");
-    }
+	std::ofstream f;
+	f.open(filename, std::ios::trunc);
+	f << "funcname,n,seconds\n";
+	f.close();
 }
+
+void add_timing(std::string funcname, timing t, std::string filename)
+{
+	std::ofstream f;
+	f.open(filename, std::ios::app);
+	f << funcname << "," << t.n << "," << t.seconds << "\n";
+	f.close();
+}
+
+// Uniformly Distributed Vector Sortings
+
+timing uniform_bs_sorting_time(int n, int reps)
+{
+	double total_time = 0.0;
+	std::vector<int> v;
+	for (int i = 0; i < reps; ++i)
+	{
+		v = get_random_vector(n);
+		std::clock_t start_time = clock();
+		bubble_sort(v);
+		std::clock_t end_time = clock();
+		total_time += (float)(end_time - start_time) / CLOCKS_PER_SEC;
+	}
+	timing t(n, (float)total_time/reps);
+	return t;
+}
+
+timing uniform_is_sorting_time(int n, int reps)
+{
+	double total_time = 0.0;
+	std::vector<int> v;
+	for (int i = 0; i < reps; ++i)
+	{
+		v = get_random_vector(n);
+		std::clock_t start_time = clock();
+		insertion_sort(v);
+		std::clock_t end_time = clock();
+		total_time += (float)(end_time - start_time) / CLOCKS_PER_SEC;
+	}
+	timing t(n, (float)total_time/reps);
+	return t;
+}
+
+timing uniform_stbs_sorting_time(int n, int reps)
+{
+	double total_time = 0.0;
+	std::vector<int> v;
+	for (int i = 0; i < reps; ++i)
+	{
+		v = get_random_vector(n);
+		std::clock_t start_time = clock();
+		spin_the_bottle_sort(v);
+		std::clock_t end_time = clock();
+		total_time += (float)(end_time - start_time) / CLOCKS_PER_SEC;
+	}
+	timing t(n, (float)total_time/reps);
+	return t;
+}
+
+timing uniform_ss_sorting_time(int n, int reps)
+{
+	double total_time = 0.0;
+	std::vector<int> v, gaps;
+	for (int i = 0; i < reps; ++i)
+	{
+		v = get_random_vector(n);
+		std::clock_t start_time = clock();
+		shell_sort(v, gaps);
+		std::clock_t end_time = clock();
+		total_time += (float)(end_time - start_time) / CLOCKS_PER_SEC;
+	}
+	timing t(n, (float)total_time/reps);
+	return t;
+}
+
+// Nearly Sorted Vector Sortings
+
+timing nearly_sorted_bs_sorting_time(int n, int reps)
+{
+	double total_time = 0.0;
+	std::vector<int> v;
+	for (int i = 0; i < reps; ++i)
+	{
+		v = get_nearly_sorted_vector(n);
+		std::clock_t start_time = clock();
+		bubble_sort(v);
+		std::clock_t end_time = clock();
+		total_time += (float)(end_time - start_time) / CLOCKS_PER_SEC;
+	}
+	timing t(n, (float)total_time/reps);
+	return t;
+}
+
+timing nearly_sorted_is_sorting_time(int n, int reps)
+{
+	double total_time = 0.0;
+	std::vector<int> v;
+	for (int i = 0; i < reps; ++i)
+	{
+		v = get_nearly_sorted_vector(n);
+		std::clock_t start_time = clock();
+		insertion_sort(v);
+		std::clock_t end_time = clock();
+		total_time += (float)(end_time - start_time) / CLOCKS_PER_SEC;
+	}
+	timing t(n, (float)total_time/reps);
+	return t;
+}
+
+timing nearly_sorted_stbs_sorting_time(int n, int reps)
+{
+	double total_time = 0.0;
+	std::vector<int> v;
+	for (int i = 0; i < reps; ++i)
+	{
+		v = get_nearly_sorted_vector(n);
+		std::clock_t start_time = clock();
+		spin_the_bottle_sort(v);
+		std::clock_t end_time = clock();
+		total_time += (float)(end_time - start_time) / CLOCKS_PER_SEC;
+	}
+	timing t(n, (float)total_time/reps);
+	return t;
+}
+
+timing nearly_sorted_ss_sorting_time(int n, int reps)
+{
+	double total_time = 0.0;
+	std::vector<int> v, gaps;
+	for (int i = 0; i < reps; ++i)
+	{
+		v = get_nearly_sorted_vector(n);
+		std::clock_t start_time = clock();
+		shell_sort(v, gaps);
+		std::clock_t end_time = clock();
+		total_time += (float)(end_time - start_time) / CLOCKS_PER_SEC;
+	}
+	timing t(n, (float)total_time/reps);
+	return t;
+}
+

@@ -24,6 +24,7 @@ void insertion_sort(std::vector<int>& nums)
 	}
 }
 
+/*
 //for shell sort
 void insertion_sort_with_gap(std::vector<int>& nums, int gap)
 {
@@ -42,4 +43,4 @@ void insertion_sort_with_gap(std::vector<int>& nums, int gap)
 		}
 	}
 }
-
+*/

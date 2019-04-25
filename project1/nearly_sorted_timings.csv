@@ -1,0 +1,13 @@
+funcname,n,seconds
+bubble_sort,10,1.66667e-06
+bubble_sort,100,5.5e-05
+bubble_sort,1000,0.00422733
+insertion_sort,10,1.33333e-06
+insertion_sort,100,1.16667e-05
+insertion_sort,1000,0.000129667
+spin_the_bottle_sort,10,3.26667e-05
+spin_the_bottle_sort,100,0.00567
+spin_the_bottle_sort,1000,2.49905
+shell_sort,10,1.33333e-06
+shell_sort,100,1.13333e-05
+shell_sort,1000,0.000146333
