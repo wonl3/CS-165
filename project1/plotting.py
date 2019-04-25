@@ -52,5 +52,6 @@ def plot_timings_from_file(fname):
     plt.show()
     plt.close()
 
-plot_timings_from_file('timings.csv')
-plot_polynomials_and_their_negations()
+plot_timings_from_file('ss_timings.csv')
+#plot_timings_from_file('timings.csv')
+#plot_polynomials_and_their_negations()
