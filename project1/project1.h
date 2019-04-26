@@ -52,11 +52,12 @@ bool check_sorted(std::vector<int>& nums)
 void shuffle_vector(std::vector<int>& v)
 {
 	int size = v.size();
-	std::mt19937 mt = get_seed();	
-	
+	std::random_device rd;
+	std::mt19937 gen(rd());
+	std::uniform_int_distribution<> dis(0, size - 1);
 	for (int i = 0; i < size / 2; ++i)
 	{
-		int index1 = mt() % size, index2 = mt() % size;
+		int index1 = dis(gen), index2 = dis(gen);
 		swap(v, index1, index2);
 	}
 }
@@ -65,11 +66,12 @@ void shuffle_vector_2(std::vector<int>& v)
 {
 	int size = v.size();
 	int number_of_swaps = 2 * (int) (log2((double) size));
-	std::mt19937 mt = get_seed();
-
+	std::random_device rd;
+	std::mt19937 gen(rd());
+	std::uniform_int_distribution<> dis(0, size - 1);
 	for (int i = 0; i < number_of_swaps; ++i)
 	{
-		int index1 = mt() % size, index2 = mt() % size;
+		int index1 = dis(gen), index2 = dis(gen);
 		swap(v, index1, index2);
 	}
 }

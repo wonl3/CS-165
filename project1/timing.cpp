@@ -61,7 +61,7 @@ void create_empty_timings()
 	create_empty_timing_file("timings/nearly_sorted_ss_1_timings.csv");
 	create_empty_timing_file("timings/nearly_sorted_ss_2_timings.csv");
 	create_empty_timing_file("timings/nearly_sorted_as_1_timings.csv");
-	create_empty_timing_file("timings/neary_sorted_as_2_timings.csv");
+	create_empty_timing_file("timings/nearly_sorted_as_2_timings.csv");
 }
 
 // Uniformly Distributed Vector Sortings

@@ -1,1 +1,6 @@
 funcname,n,seconds
+spin_the_bottle_sort,4,1.9e-05
+spin_the_bottle_sort,20,0.000154333
+spin_the_bottle_sort,100,0.00655233
+spin_the_bottle_sort,500,0.345936
+spin_the_bottle_sort,2500,78.9725

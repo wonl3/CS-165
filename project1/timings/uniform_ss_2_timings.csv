@@ -1,1 +1,7 @@
 funcname,n,seconds
+shell_sort,10,1.66667e-06
+shell_sort,100,1.63333e-05
+shell_sort,1000,0.000189
+shell_sort,10000,0.002946
+shell_sort,100000,0.038308
+shell_sort,1000000,0.477218
