@@ -1,5 +1,9 @@
 funcname,n,seconds
-annealing_sort,10,3.9e-05
-annealing_sort,100,0.00247967
-annealing_sort,1000,0.252242
-annealing_sort,10000,25.0967
+annealing_sort,10,3.83333e-05
+annealing_sort,100,0.00247467
+annealing_sort,1000,0.247713
+annealing_sort,10000,24.7542
+annealing_sort,10,4.5e-05
+annealing_sort,100,0.000477333
+annealing_sort,1000,0.00714967
+annealing_sort,10000,0.0942883

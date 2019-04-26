@@ -1,1 +1,5 @@
 funcname,n,seconds
+annealing_sort,10,4.06667e-05
+annealing_sort,100,0.000474
+annealing_sort,1000,0.00670167
+annealing_sort,10000,0.0924657

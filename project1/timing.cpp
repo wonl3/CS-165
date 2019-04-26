@@ -172,7 +172,7 @@ timing uniform_as_2_sorting_time(int n, int reps)
 	double total_time = 0.0;
 	std::vector<int> v, temp, rep;
 	temp = get_log2_rev_vector(n);
-	rep = get_log2_rev_vector(n);
+	rep = get_c_vector(n, 5);
 
 	for (int i = 0; i < reps; ++i)
 	{
@@ -294,7 +294,7 @@ timing nearly_sorted_as_2_sorting_time(int n, int reps)
 	double total_time = 0.0;
 	std::vector<int> v, temp, rep;
 	temp = get_log2_rev_vector(n);
-	rep = get_log2_rev_vector(n);
+	rep = get_c_vector(n, 5);
 
 	for (int i = 0; i < reps; ++i)
 	{

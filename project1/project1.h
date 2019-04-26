@@ -109,6 +109,14 @@ std::vector<int> get_log2_rev_vector(int n)
 	return v;
 }
 
+std::vector<int> get_c_vector(int n, int c)
+{
+	int lg2 = (int) log2(n);
+	std::vector<int> v = std::vector<int>(lg2 + 2, c);
+	v[lg2 + 1] = 0;
+	return v;
+}
+
 //REQUIREMENTS:
 //each sort should be implemented in its own file of the same name e.g. bubble_sort.cpp
 //each file should #include this header file
