@@ -1,6 +1,0 @@
-funcname,n,seconds
-insertion_sort,10,1.33333e-06
-insertion_sort,100,7.33333e-06
-insertion_sort,1000,0.000103333
-insertion_sort,10000,0.00155933
-insertion_sort,100000,0.0190947

@@ -1,6 +1,0 @@
-funcname,n,seconds
-shell_sort,10,1.33333e-06
-shell_sort,100,1.76667e-05
-shell_sort,1000,0.000215333
-shell_sort,10000,0.00368967
-shell_sort,100000,0.0536047
