@@ -11,12 +11,12 @@ int main()
 //	spin_the_bottle_sort(nums);	//works
 //	shell_sort(nums); //works
 	
-//	create_empty_timing_file("uniform_timings.csv");
-//	create_empty_timing_file("nearly_sorted_timings.csv");
+	create_empty_timing_file("uniform_timings.csv");
+	create_empty_timing_file("nearly_sorted_timings.csv");
 	create_empty_timings();
 	timing t;
 
-/*
+
 // Uniform
 
 	// Bubble Sort
@@ -70,7 +70,7 @@ int main()
 		add_timing("annealing_sort_1", t, "timings/uniform_as_1_timings.csv");
 		std::cout << "Annealing Sort 1 - Size: " << n << " Time: " << t.seconds << " Done" << std::endl;
 	}
-*/
+	
 	// Annealing Sort 2
 	for (int n = 10; n <= 1000000; n *= 10)
 	{
@@ -78,7 +78,7 @@ int main()
 		add_timing("annealing_sort_2", t, "timings/uniform_as_2_timings.csv");
 		std::cout << "Annealing Sort 2 - Size: " << n << " Time: " << t.seconds << " Done" << std::endl;
 	}
-/*
+
 // Nearly Sorted
 
 	// Bubble Sort
@@ -133,7 +133,7 @@ int main()
 		add_timing("annealing_sort_1", t, "timings/nearly_sorted_as_1_timings.csv");
 		std::cout << "Annealing Sort 1 - Size: " << n << " Time: " << t.seconds << " Done" << std::endl;
 	}
-*/
+
 	// Annealing Sort 2
 	for (int n = 10; n <= 1000000; n *= 10)
 	{

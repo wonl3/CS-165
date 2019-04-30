@@ -47,20 +47,20 @@ void add_timing(std::string funcname, timing t, std::string filename)
 
 void create_empty_timings()
 {
-//	create_empty_timing_file("timings/uniform_bs_timings.csv");
-//	create_empty_timing_file("timings/uniform_is_timings.csv");
-//	create_empty_timing_file("timings/uniform_stbs_timings.csv");
-//	create_empty_timing_file("timings/uniform_ss_1_timings.csv");
-//	create_empty_timing_file("timings/uniform_ss_2_timings.csv");
-//	create_empty_timing_file("timings/uniform_as_1_timings.csv");
+	create_empty_timing_file("timings/uniform_bs_timings.csv");
+	create_empty_timing_file("timings/uniform_is_timings.csv");
+	create_empty_timing_file("timings/uniform_stbs_timings.csv");
+	create_empty_timing_file("timings/uniform_ss_1_timings.csv");
+	create_empty_timing_file("timings/uniform_ss_2_timings.csv");
+	create_empty_timing_file("timings/uniform_as_1_timings.csv");
 	create_empty_timing_file("timings/uniform_as_2_timings.csv");
 
-//	create_empty_timing_file("timings/nearly_sorted_bs_timings.csv");
-//	create_empty_timing_file("timings/nearly_sorted_is_timings.csv");
-//	create_empty_timing_file("timings/nearly_sorted_stbs_timings.csv");
-//	create_empty_timing_file("timings/nearly_sorted_ss_1_timings.csv");
-//	create_empty_timing_file("timings/nearly_sorted_ss_2_timings.csv");
-//	create_empty_timing_file("timings/nearly_sorted_as_1_timings.csv");
+	create_empty_timing_file("timings/nearly_sorted_bs_timings.csv");
+	create_empty_timing_file("timings/nearly_sorted_is_timings.csv");
+	create_empty_timing_file("timings/nearly_sorted_stbs_timings.csv");
+	create_empty_timing_file("timings/nearly_sorted_ss_1_timings.csv");
+	create_empty_timing_file("timings/nearly_sorted_ss_2_timings.csv");
+	create_empty_timing_file("timings/nearly_sorted_as_1_timings.csv");
 	create_empty_timing_file("timings/nearly_sorted_as_2_timings.csv");
 }
 
