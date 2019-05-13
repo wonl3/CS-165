@@ -37,20 +37,18 @@ void add_waste(std::string funcname, Waste waste, std::string filename)
 	f.close();
 }
 
-Waste best_fit_dec_waste(int n, int reps)
+Waste next_fit_waste(int n, int reps)
 {
 	double total_waste = 0.0;
 	std::vector<double> items;
 
 	for (int i = 0; i < reps; ++i)
 	{
-		items = {0.5, 0.7, 0.5, 0.2, 0.4, 0.2, 0.5, 0.1, 0.6};
+		items = get_random_vector(n);
 		std::vector<int> assignment(items.size(), 0);
 		std::vector<double> free_space;
 
-		best_fit_decreasing(items, assignment, free_space);
-		print_vector(assignment);
-		print_vector(free_space);
+		next_fit(items, assignment, free_space);
 		total_waste += (free_space.size() - get_sum(items));
 	}
 	
@@ -58,3 +56,78 @@ Waste best_fit_dec_waste(int n, int reps)
 	return waste;
 }
 
+Waste first_fit_waste(int n, int reps)
+{
+	double total_waste = 0.0;
+	std::vector<double> items;
+
+	for (int i = 0; i < reps; ++i)
+	{
+		items = get_random_vector(n);
+		std::vector<int> assignment(items.size(), 0);
+		std::vector<double> free_space;
+
+		first_fit(items, assignment, free_space);
+		total_waste += (free_space.size() - get_sum(items));
+	}
+	
+	Waste waste(n, (float)total_waste/reps);
+	return waste;
+}
+
+Waste first_fit_dec_waste(int n, int reps)
+{
+	double total_waste = 0.0;
+	std::vector<double> items;
+
+	for (int i = 0; i < reps; ++i)
+	{
+		items = get_random_vector(n);
+		std::vector<int> assignment(items.size(), 0);
+		std::vector<double> free_space;
+
+		first_fit_decreasing(items, assignment, free_space);
+		total_waste += (free_space.size() - get_sum(items));
+	}
+	
+	Waste waste(n, (float)total_waste/reps);
+	return waste;
+}
+
+Waste best_fit_waste(int n, int reps)
+{
+	double total_waste = 0.0;
+	std::vector<double> items;
+
+	for (int i = 0; i < reps; ++i)
+	{
+		items = get_random_vector(n);
+		std::vector<int> assignment(items.size(), 0);
+		std::vector<double> free_space;
+
+		best_fit(items, assignment, free_space);
+		total_waste += (free_space.size() - get_sum(items));
+	}
+	
+	Waste waste(n, (float)total_waste/reps);
+	return waste;
+}
+
+Waste best_fit_dec_waste(int n, int reps)
+{
+	double total_waste = 0.0;
+	std::vector<double> items;
+
+	for (int i = 0; i < reps; ++i)
+	{
+		items = get_random_vector(n);
+		std::vector<int> assignment(items.size(), 0);
+		std::vector<double> free_space;
+
+		best_fit_decreasing(items, assignment, free_space);
+		total_waste += (free_space.size() - get_sum(items));
+	}
+	
+	Waste waste(n, (float)total_waste/reps);
+	return waste;
+}

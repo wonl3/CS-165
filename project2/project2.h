@@ -11,6 +11,7 @@
 
 // Helper Functions
 
+	// Printing
 void print_vector(std::vector<int>& v)
 {
 	std::cout << "{ ";
@@ -31,10 +32,37 @@ void print_vector(std::vector<double>& v)
 	std::cout << "}" << std::endl;
 }
 
+	// Rounding decimal points
+double limit_decimal_point(double d, int n)
+{
+	return floor(d * pow(10, n)) / pow(10, n);
+}
+
 void limit_decimal_point(std::vector<double>& v, int n)
 {
 	for (std::vector<double>::iterator it = v.begin(); it != v.end(); ++it)
 		*it = floor((*it) * pow(10, n)) / pow(10, n);
+}
+
+void round_decimal(std::vector<double>& v, int n)
+{
+	for (std::vector<double>::iterator it = v.begin(); it != v.end(); ++it)
+		*it = (float)((int)((*it) * pow(10, n) + 0.5)) / pow(10, n);
+}
+
+	// Random Vector Generator
+std::vector<double> get_random_vector(int n)
+{
+	std::random_device rd;
+	std::mt19937 gen(rd());
+	std::uniform_real_distribution<> dis(0.0, 1.0);
+
+	std::vector<double> v = std::vector<double>(n);
+	for (int i = 0; i < n; ++i)
+	{
+		v[i] = limit_decimal_point(dis(gen), 4);
+	}
+	return v;
 }
 
 double get_sum(std::vector<double> v)

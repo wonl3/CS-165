@@ -4,20 +4,24 @@ void next_fit(const std::vector<double>& items, std::vector<int>& assignment, st
 {
 	int size = items.size();
 	free_space.push_back(1.0);
+	
 	for (int i = 0; i < size; ++i)
 	{
+		//round off each item to ten thousanth for now
+		double item_rounded = limit_decimal_point(items[i], 4);
+		
 		// if next bin content + current item > 1.0 
-		if (free_space[free_space.size() - 1] - items[i] < 0.0)
+		if (free_space[free_space.size() - 1] - item_rounded < 0.0)
 		{
-			free_space.push_back(1.0 - items[i]);
+			free_space.push_back(1.0 - item_rounded);
 			assignment[i] = free_space.size() - 1;
 		}
 		else
 		{
-			free_space[free_space.size() - 1] -= items[i];
+			free_space[free_space.size() - 1] -= item_rounded;
 			assignment[i] = free_space.size() - 1; 
 		}
 	}
 
-	limit_decimal_point(free_space, 4);
+	round_decimal(free_space, 4);
 }
