@@ -7,7 +7,7 @@ void next_fit(const std::vector<double>& items, std::vector<int>& assignment, st
 	
 	for (int i = 0; i < size; ++i)
 	{
-		//round off each item to ten thousanth for now
+		//round off each item to seventh decimal place for now
 		double item_rounded = limit_decimal_point(items[i], 7);
 		
 		// if next bin content + current item > 1.0 
