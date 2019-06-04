@@ -13,7 +13,21 @@ int Graph::get_num_edges()
 { return num_edges; }
 
 bool Graph::is_neighbor(Node u, Node v)
-{ return false; }
+{
+	if (node_map.find(u.get_node_id()) == node_map.end())
+	{
+		std::cout << "Node " << u.get_node_id() << " Not in graph.\n";
+		exit(1);
+	}
+
+	if (node_map.find(v.get_node_id()) == node_map.end())
+	{
+		std::cout << "Node " << v.get_node_id() << " Not in graph.\n";
+		exit(1);
+	}
+
+	return u.find(v) && v.find(u);
+}
 
 void Graph::add_node(Node node)
 {
@@ -53,7 +67,11 @@ void Graph::add_edge(int node_id_1, int node_id_2)
 
 std::vector<Node> Graph::get_neighbors(Node u)
 {
-	std::vector<Node> v;
+	std::vector<Node> v(u.neighbors.size());
+	for (int i = 0; i < u.neighbors.size(); ++i)
+	{
+		v[i] = node_map[u.neighbors[i]];
+	}
 	return v;
 }
 
