@@ -5,13 +5,9 @@
 
 class Node
 {
-
-private:
-
-	int id;
-
 public:
 
+	int id;
 	std::vector<int> neighbors;
 	
 	Node()

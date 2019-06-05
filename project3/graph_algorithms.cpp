@@ -233,9 +233,13 @@ float get_clustering_coefficient(Graph& graph)
 
 std::map<int, int> get_degree_distribution(Graph& graph)
 {
+	std::map<int, Node> id_to_node_map = graph.get_id_to_node_map();
 	std::map<int, int> deg_dis;
 
-	for (std::map<int, Node>::iterator it = graph.get_id_to_node_map().begin(); it != graph.get_id_to_node_map().end(); ++it)
+	for (int i = 0; i < graph.get_num_nodes(); ++i)
+		deg_dis.insert(std::pair<int, int>{i, 0});
+
+	for (std::map<int, Node>::iterator it = id_to_node_map.begin(); it != id_to_node_map.end(); ++it)
 	{
 		++deg_dis[(it->second).get_degree()];
 	}
