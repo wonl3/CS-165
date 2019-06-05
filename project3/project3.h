@@ -15,6 +15,37 @@
 void nl()
 { std::cout << std::endl; }
 
+void print_vector(std::vector<int>& v)
+{
+	if (v.size() == 0)
+	{ 
+		std::cout << "Empty.\n";
+		return;
+	}
+
+	for (int i = 0; i < v.size(); ++i)
+	{
+		std::cout << v[i] << " ";
+	}
+	nl();
+}
+
+void print_matrix(std::vector<std::vector<int>>& D)
+{
+	for (int i = 0; i < D.size(); ++i)
+	{
+		std::cout << i << ": ";
+		print_vector(D[i]);
+	}
+}
+
+int find_index(std::vector<int>& v, int e)
+{
+	for (int i = 0; i < v.size(); ++i)
+		if (v[i] == e) return i;
+	return -1;
+}
+
 /******* NODE CLASS ********/
 class Node;  // define/implement in node.h
 
@@ -71,9 +102,9 @@ bool Graph::is_neighbor(Node u, Node v)
 /******* ALGORITHMS TO IMPLEMENT ********/
 // implement all 3 in graph_algorithms.cpp
 // should include graph.h
-int get_diameter(Graph graph); 
-float get_clustering_coefficient(Graph graph);
-std::map<int, int> get_degree_distribution(Graph graph);
+int get_diameter(Graph& graph); 
+float get_clustering_coefficient(Graph& graph);
+std::map<int, int> get_degree_distribution(Graph& graph);
 
 /******* GRAPH GENERATION FUNCTIONS ********/
 Graph create_erdos_renyi_graph(int n, float p); // implement in erdos_renyi.cpp

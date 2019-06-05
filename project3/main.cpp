@@ -5,7 +5,7 @@ int main()
 {
 	Node node(3);
 
-	Graph g = make_graph(3, std::vector<int>{1,2}, std::vector<int>{2,3});
+	Graph g = make_graph(3, std::vector<int>{1,2,3}, std::vector<int>{2,3,1});
 	std::cout << g.get_num_nodes() << std::endl;		
 	std::cout << g.get_num_edges() << std::endl;
 
@@ -20,5 +20,7 @@ int main()
 	nl();
 	std::cout << "Num of 2-edge paths = " << get_num_of_2_edge_paths(g) << std::endl;
 
+	nl();
+	std::cout << "Triangle Count = " << get_num_of_triangles(g) << std::endl;
 	return 0;
 }

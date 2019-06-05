@@ -14,6 +14,7 @@ int Graph::get_num_edges()
 
 bool Graph::is_neighbor(Node u, Node v)
 {
+	std::cout << "hi.\n";
 	if (node_map.find(u.get_node_id()) == node_map.end())
 	{
 		std::cout << "Node " << u.get_node_id() << " Not in graph.\n";
@@ -26,6 +27,7 @@ bool Graph::is_neighbor(Node u, Node v)
 		exit(1);
 	}
 
+	std::cout << "in is_neighbor.\n";
 	return u.find(v) && v.find(u);
 }
 

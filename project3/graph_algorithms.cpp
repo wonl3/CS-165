@@ -18,9 +18,9 @@ Graph make_graph(int num_nodes, std::vector<int> u, std::vector<int> v)
 	return graph;
 }
 
-int get_index_of_nonempty_vector(std::vector<std::vector<int>>& D)
+int get_smallest_index_of_nonempty_vector(std::vector<std::vector<int>>& D)
 {
-	for (int i = 1; i < D.size(); ++i)
+	for (int i = 0; i < D.size(); ++i)
 	{
 		if (D[i].size() != 0) return i;
 	}
@@ -28,7 +28,7 @@ int get_index_of_nonempty_vector(std::vector<std::vector<int>>& D)
 	return 0;
 }
 
-std::vector<int> get_degeneracy_ordering(Graph graph, std::vector<std::vector<int>> N)
+std::vector<int> get_degeneracy_ordering(Graph& graph, std::vector<std::vector<int>>& N)
 {
 	std::map<int, Node> id_to_node_map = graph.get_id_to_node_map();
 	std::vector<int> L;
@@ -36,60 +36,116 @@ std::vector<int> get_degeneracy_ordering(Graph graph, std::vector<std::vector<in
 
 	//compute dv for each vertex
 	std::vector<int> dv_list(graph.get_num_nodes() + 1, 0);
+	//std::vector<int> dv_list;
 	int max_dv = 0;
 	for (int i = 1; i < dv_list.size(); ++i)
 	{
 		dv_list[i] = id_to_node_map[i].neighbors.size();
- 		max_dv = std::max(max_dv, id_to_node_map[i].neighbors.size());
+		std::cout << "Node " << i << ", Degree = " << dv_list[i] << std::endl;
+ 		max_dv = std::max(max_dv, (int) id_to_node_map[i].neighbors.size());
 	//	if (max_dv < id_to_node_map[i].neighbors.size())
 	//		max_dv = id_to_node_map[i].neighbors.size();
 	}
 
 	std::vector<std::vector<int>> D(max_dv + 1, std::vector<int>{});
-	for (int i = 1; i < max_dv + 1; ++i)
+	for (int i = 1; i < dv_list.size(); ++i)
 	{
 		D[dv_list[i]].push_back(i);
 	}
+
+	std::cout << "Max_dv = " << max_dv << std::endl;
+	print_matrix(D);
+
+	std::cout << "Everything initialized in Degeneracy function.\n";
 
 	int k = 0;
 
 	for (int i = 0; i < graph.get_num_nodes(); ++i)
 	{
 		int j = get_smallest_index_of_nonempty_vector(D);
-		if (j == 0)
-		{
-			std::cout << "Error.\n";
-			exit(1);
-		}
+		std::cout << "Got smallest index = " << j << std::endl;
 
 		k = std::max(k, j);
-		int v = D[i][D[i].size()-1];
-		D[i].pop_back();
+		std::cout << "K is now " << k << std::endl;
+		int v = D[j][D[j].size()-1];
+		D[j].pop_back();
 		L.push_back(v);
 		HL.insert(v);
+
+		std::cout << "Popped the last element in D[j] = " << v << std::endl;
 
 		Node n = id_to_node_map[v];
 		for (int t = 0; t < n.neighbors.size(); ++t)
 		{
 			if (HL.find(n.neighbors[t]) != HL.end()) continue;
-			std::vector<int>::iterator it = find(D[dv_list[n.neighbors[t]]].begin(). D[dv_list[n.neighbors[t]]].end(), t);
-			D[dv_list[n.neighbors[t]]].erase(it);
+			std::cout << "n.neighbors[t] = " << n.neighbors[t] << std::endl;
+//			std::vector<int>::iterator it = std::find(D[dv_list[n.neighbors[t]]].begin(), D[dv_list[n.neighbors[t]]].end(), t);
+			int index = find_index(D[dv_list[n.neighbors[t]]], n.neighbors[t]);
+			std::cout << "Current Node " << n.neighbors[t] << ", " << n.neighbors[t] << " Found at index " << index << std::endl;
+			D[dv_list[n.neighbors[t]]].erase(D[dv_list[n.neighbors[t]]].begin() + index);
 			
 			--dv_list[n.neighbors[t]];
 			D[dv_list[n.neighbors[t]]].push_back(n.neighbors[t]);
 			N[v].push_back(n.neighbors[t]);
+			print_matrix(D);
 		}
 	}
 
-//	reverse(L);
+	std::reverse(L.begin(), L.end());
+	return L;
 }
 
-int get_num_of_triangles(Graph graph)
+int get_num_of_triangles(Graph& graph)
 {
-	return 0;
+	int triangle_count = 0;
+	std::vector<std::vector<int>> N(graph.get_num_nodes() + 1, std::vector<int>{});
+	std::vector<int> L = get_degeneracy_ordering(graph, N);
+	std::cout << "Degeneracy Passed.\n";
+	print_matrix(N);
+	print_vector(L);
+
+	std::map<int, Node> id_to_node_map = graph.get_id_to_node_map();
+	for (int i = 0; i < L.size(); ++i)
+	{
+/*
+		std::vector<int> v;
+		for (int i = 0; i < node.neighbors.size(); ++i)
+		{
+			if (find_index(N[L[i]], node.neighbors[i]) != -1)
+				v.push_back(node.neighbors[i]);
+		}
+		print_vector(v);
+
+		if (v.size() < 2) continue;
+*/
+		if (N[L[i]].size() < 2) 
+		{
+			std::cout << "Not enough N for node " << L[i] << std::endl;
+			continue;
+		}
+
+		for (int j = 0; j < N[L[i]].size() - 1; ++j)
+		{
+			for (int k = j + 1; k < N[L[i]].size(); ++k)
+			{
+				std::cout << "Checking if neighbors: " << N[L[i]][j] << ", " << N[L[i]][k] << std::endl;
+				std::cout << id_to_node_map[N[L[i]][j]].get_degree() << std::endl;
+				std::cout << id_to_node_map[N[L[i]][k]].get_degree() << std::endl;
+				std::cout << "hi\n";
+				if (graph.is_neighbor(id_to_node_map[N[L[i]][j]], id_to_node_map[N[L[j]][k]]))
+				{
+					std::cout << "yay.\n";
+					++triangle_count;
+				}
+				std::cout << "Please.\n";
+			}
+		}
+	}
+
+	return triangle_count;
 }
 
-int get_num_of_2_edge_paths(Graph graph)
+int get_num_of_2_edge_paths(Graph& graph)
 {
 	std::map<int, Node> id_to_node_map = graph.get_id_to_node_map();
 	int sum = 0;
@@ -104,7 +160,7 @@ int get_num_of_2_edge_paths(Graph graph)
 }
 
 // Returns a vector of 2 ints - {eccentricity of node, node id of the farthest node}
-std::vector<int> bfs(Graph graph, int node_id)
+std::vector<int> bfs(Graph& graph, int node_id)
 {	
 	std::map<int, Node> id_to_node_map = graph.get_id_to_node_map();
 	
@@ -148,7 +204,7 @@ std::vector<int> bfs(Graph graph, int node_id)
 	return v;
 }
 
-int get_diameter(Graph graph)
+int get_diameter(Graph& graph)
 {
 	int diameter = 0;
 	std::map<int, Node> id_to_node_map = graph.get_id_to_node_map();	
@@ -168,7 +224,7 @@ int get_diameter(Graph graph)
 	return diameter;
 }
 
-float get_clustering_coefficient(Graph graph)
+float get_clustering_coefficient(Graph& graph)
 {
 	int num_of_2_edge_paths = get_num_of_2_edge_paths(graph);
 	int num_of_triangles = get_num_of_triangles(graph);
@@ -176,7 +232,7 @@ float get_clustering_coefficient(Graph graph)
 	return 3 * ((float) num_of_triangles) / num_of_2_edge_paths;
 }
 
-std::map<int, int> get_degree_distribution(Graph graph)
+std::map<int, int> get_degree_distribution(Graph& graph)
 {
 	std::map<int, int> deg_dis;
 
