@@ -50,8 +50,8 @@ int main()
 		std::cout << "Size = " << n << ", Diameter = " << avg_d << std::endl;
 	}
 */
-/*
-	for (int n = 1000; n <= 100000; n *= 10)
+
+	for (int n = 10; n <= 100000; n *= 10)
 	{
 		float total_clustering_coeff = 0.0;
 		double p = 2 * log(n) / n;
@@ -59,7 +59,6 @@ int main()
 		for (int i = 0; i < reps; ++i)
 		{
 			Graph g = create_erdos_renyi_graph(n, p); 
-			std::cout << "here\n";
 			total_clustering_coeff += get_clustering_coefficient(g); 
 		}
 
@@ -67,7 +66,8 @@ int main()
 		add_clustering_coeff(n, avg_c);
 		std::cout << "Size = " << n << ", Cluttering Coefficient = " << avg_c << std::endl;
 	}
-*/
+
+/*
 	for (int n = 1000; n <= 100000; n *= 10)
 	{
 		double p = 2 * log(n) / n;
@@ -84,6 +84,6 @@ int main()
 
 		std::cout << "Size = " << n << ", Degree Distribution Done.\n";
 	}
-
+*/
 	return 0;
 }
