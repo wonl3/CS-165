@@ -1,3 +1,3 @@
 #!/bin/bash
 
-g++ -std=c++11 main.cpp -o proj3 && ./proj3
+g++ -ggdb -std=c++11 main.cpp -o proj3 && ./proj3

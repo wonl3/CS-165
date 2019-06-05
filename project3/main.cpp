@@ -56,12 +56,11 @@ int main()
 		float total_clustering_coeff = 0.0;
 		double p = 2 * log(n) / n;
 
-		for (int i = 0; i < reps; ++i)
-		{
-			Graph g = create_erdos_renyi_graph(n, p); 
-			total_clustering_coeff += get_clustering_coefficient(g); 
-		}
-
+//		for (int i = 0; i < reps; ++i)
+//		{
+		Graph g = create_erdos_renyi_graph(n, p); 
+		total_clustering_coeff += get_clustering_coefficient(g); 
+//		}
 		double avg_c = total_clustering_coeff / reps;
 		add_clustering_coeff(n, avg_c);
 		std::cout << "Size = " << n << ", Cluttering Coefficient = " << avg_c << std::endl;

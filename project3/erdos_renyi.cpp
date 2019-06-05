@@ -1,7 +1,7 @@
 #include "project3.h"
 #include "graph_algorithms.cpp"
 
-
+/*
 Graph create_erdos_renyi_graph(int n, float p)
 {
 	Graph graph = make_graph(n, std::vector<int>{}, std::vector<int>{});
@@ -23,8 +23,35 @@ Graph create_erdos_renyi_graph(int n, float p)
 		}
 
 		if (v < n)
+		{
+//			std::cout << "Adding an edge between " << v << " and " << w << std::endl;
 			graph.add_edge(v, w);
+		}
 	}
 
+	std::cout << "Graph has " << graph.get_num_edges() << " edges.\n";
+	return graph;
+}
+*/
+
+Graph create_erdos_renyi_graph(int n, float p)
+{
+	Graph graph = make_graph(n, std::vector<int>{}, std::vector<int>{});
+	
+	std::random_device rd;
+	std::mt19937 gen(rd());
+	std::uniform_real_distribution<> dis(0.0, 1.0);
+	
+	for (int i = 1; i <= n - 1; ++i)
+	{
+		for (int j = i + 1; j <= n; ++j)
+		{
+			double r = dis(gen);
+			if (r <= p)
+				graph.add_edge(i, j);
+		}
+	}
+	
+	std::cout << "Graph has " << graph.get_num_edges() << " edges.\n";
 	return graph;
 }

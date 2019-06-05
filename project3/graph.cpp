@@ -44,6 +44,10 @@ void Graph::add_node(Node node)
 
 void Graph::add_edge(int node_id_1, int node_id_2)
 {
+	std::cout << "Creating an edge between Node " << node_id_1 << " and Node " << node_id_2 << std::endl;
+//	if (node_id_1 == 0 || node_id_2 == 0) return;
+
+	
 	//check if edge exists
 	if (Graph::is_neighbor(node_map[node_id_1], node_map[node_id_2]))
 	{
@@ -58,7 +62,6 @@ void Graph::add_edge(int node_id_1, int node_id_2)
 		exit(1);
 	}
 
-//	std::cout << "Creating an edge between Node " << node_id_1 << " and Node " << node_id_2 << std::endl;
 	node_map[node_id_1].add_neighbor(node_map[node_id_2]);
 	node_map[node_id_2].add_neighbor(node_map[node_id_1]);
 
