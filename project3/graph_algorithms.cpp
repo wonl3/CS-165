@@ -53,17 +53,18 @@ std::vector<int> get_degeneracy_ordering(Graph& graph, std::vector<std::vector<i
 		D[dv_list[i]].push_back(i);
 	}
 
-	std::cout << "Max_dv = " << max_dv << std::endl;
-	print_matrix(D);
-	std::cout << "Everything initialized in Degeneracy function.\n";
+//	std::cout << "Max_dv = " << max_dv << std::endl;
+//	print_matrix(D);
+//	std::cout << "Everything initialized in Degeneracy function.\n";
+
 //	exit(0);
 
 	int k = 0;
-	std::cout << "Number of Nodes = " << graph.get_num_nodes() << std::endl;
+//	std::cout << "Number of Nodes = " << graph.get_num_nodes() << std::endl;
 	for (int i = 0; i < graph.get_num_nodes(); ++i)
 	{
 		int j = get_smallest_index_of_nonempty_vector(D);
-		std::cout << "i = " << i << ", Got smallest index = " << j << std::endl;
+	//	std::cout << "i = " << i << ", Got smallest index = " << j << std::endl;
 
 		k = std::max(k, j);
 //		std::cout << "K is now " << k << std::endl;
@@ -71,8 +72,8 @@ std::vector<int> get_degeneracy_ordering(Graph& graph, std::vector<std::vector<i
 		D[j].pop_back();
 		L.push_back(v);
 		HL.insert(v);
-		print_matrix(D);
-		std::cout << "Popped the last element in D[j] = " << v << std::endl;
+//		print_matrix(D);
+	//	std::cout << "Popped the last element in D[j] = " << v << std::endl;
 
 		Node n = id_to_node_map[v];
 		for (int t = 0; t < n.neighbors.size(); ++t)
@@ -81,13 +82,13 @@ std::vector<int> get_degeneracy_ordering(Graph& graph, std::vector<std::vector<i
 //			std::cout << "n.neighbors[t] = " << n.neighbors[t] << std::endl;
 //			std::vector<int>::iterator it = std::find(D[dv_list[n.neighbors[t]]].begin(), D[dv_list[n.neighbors[t]]].end(), t);
 			int index = find_index(D[dv_list[n.neighbors[t]]], n.neighbors[t]);
-			std::cout << "Current Node " << n.neighbors[t] << ", " << n.neighbors[t] << " Found at index " << index << std::endl;
+//			std::cout << "Current Node " << n.neighbors[t] << ", " << n.neighbors[t] << " Found at index " << index << std::endl;
 			D[dv_list[n.neighbors[t]]].erase(D[dv_list[n.neighbors[t]]].begin() + index);
 			
 			--dv_list[n.neighbors[t]];
 			D[dv_list[n.neighbors[t]]].push_back(n.neighbors[t]);
 			N[v].push_back(n.neighbors[t]);
-			print_matrix(D);
+	//		print_matrix(D);
 //			exit(0);
 		}
 	}
@@ -101,7 +102,7 @@ int get_num_of_triangles(Graph& graph)
 	int triangle_count = 0;
 	std::vector<std::vector<int>> N(graph.get_num_nodes() + 1, std::vector<int>{});
 	std::vector<int> L = get_degeneracy_ordering(graph, N);
-	std::cout << "Degeneracy Passed.\n";
+//	std::cout << "Degeneracy Passed.\n";
 //	print_matrix(N);
 //	print_vector(L);
 	std::map<int, Node> id_to_node_map = graph.get_id_to_node_map();

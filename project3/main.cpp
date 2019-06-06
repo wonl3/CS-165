@@ -28,12 +28,12 @@ int main()
 	run_tests();
 
 	int reps = 1;
-//	create_empty_diameter_file();
+	create_empty_diameter_file();
 	create_empty_clustering_coeff_file();
 	create_empty_deg_dis_file("1000");
 	create_empty_deg_dis_file("10000");
 	create_empty_deg_dis_file("100000");
-/*	
+	
 	for (int n = 1000; n <= 100000; n *= 10)
 	{
 		int total_diameter = 0;
@@ -49,7 +49,7 @@ int main()
 		add_diameter(n, avg_d);
 		std::cout << "Size = " << n << ", Diameter = " << avg_d << std::endl;
 	}
-*/
+
 
 	for (int n = 10; n <= 100000; n *= 10)
 	{
@@ -66,7 +66,7 @@ int main()
 		std::cout << "Size = " << n << ", Cluttering Coefficient = " << avg_c << std::endl;
 	}
 
-/*
+
 	for (int n = 1000; n <= 100000; n *= 10)
 	{
 		double p = 2 * log(n) / n;
@@ -83,6 +83,6 @@ int main()
 
 		std::cout << "Size = " << n << ", Degree Distribution Done.\n";
 	}
-*/
+
 	return 0;
 }

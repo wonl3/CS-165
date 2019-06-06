@@ -1,7 +1,7 @@
 #include "project3.h"
 #include "graph_algorithms.cpp"
 
-/*
+
 Graph create_erdos_renyi_graph(int n, float p)
 {
 	Graph graph = make_graph(n, std::vector<int>{}, std::vector<int>{});
@@ -25,15 +25,15 @@ Graph create_erdos_renyi_graph(int n, float p)
 		if (v < n)
 		{
 //			std::cout << "Adding an edge between " << v << " and " << w << std::endl;
-			graph.add_edge(v, w);
+			graph.add_edge(v+1, w+1);
 		}
 	}
 
-	std::cout << "Graph has " << graph.get_num_edges() << " edges.\n";
+//	std::cout << "Graph has " << graph.get_num_edges() << " edges.\n";
 	return graph;
 }
-*/
 
+/*
 Graph create_erdos_renyi_graph(int n, float p)
 {
 	Graph graph = make_graph(n, std::vector<int>{}, std::vector<int>{});
@@ -55,3 +55,4 @@ Graph create_erdos_renyi_graph(int n, float p)
 	std::cout << "Graph has " << graph.get_num_edges() << " edges.\n";
 	return graph;
 }
+*/

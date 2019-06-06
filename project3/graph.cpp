@@ -44,7 +44,7 @@ void Graph::add_node(Node node)
 
 void Graph::add_edge(int node_id_1, int node_id_2)
 {
-	std::cout << "Creating an edge between Node " << node_id_1 << " and Node " << node_id_2 << std::endl;
+//	std::cout << "Creating an edge between Node " << node_id_1 << " and Node " << node_id_2 << std::endl;
 //	if (node_id_1 == 0 || node_id_2 == 0) return;
 
 	
